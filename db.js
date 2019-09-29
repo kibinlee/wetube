@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-mongoose.connect(process.env.MONGO_URL, {
+mongoose.connect(process.env.MONGO_URL_PROD, {
   useNewUrlParser: true,
   useFindAndModify: false
 });
@@ -11,7 +11,10 @@ mongoose.connect(process.env.MONGO_URL, {
 const db = mongoose.connection;
 
 const handleOpen = () => console.log("✅ Connected to DB");
-const handleError = () => console.log(`❌Error on DB Connection Error`);
+const handleError = error => {
+  console.log(error);
+  console.log(`❌Error on DB Connection Error`);
+};
 
 db.once("open", handleOpen);
 db.on("error", handleError);
